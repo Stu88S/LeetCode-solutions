@@ -13,16 +13,14 @@ const romanToInt = s => {
         M: 1000,
     };
 
-    let result = 0;
-    for (let i = 0; i < s.length; i++) {
-        const currentSymbolValue = romanValues[s[i]];
-        const nextSymbolValue = romanValues[s[i + 1]];
+    return [...s].reduce((result, symbol, index) => {
+        const currentSymbolValue = romanValues[symbol];
+        const nextSymbolValue = romanValues[s[index + 1]];
 
         if (nextSymbolValue && currentSymbolValue < nextSymbolValue) {
-            result -= currentSymbolValue;
+            return result - currentSymbolValue;
         } else {
-            result += currentSymbolValue;
+            return result + currentSymbolValue;
         }
-    }
-    return result;
+    }, 0);
 };
