@@ -3,21 +3,14 @@
  * @param {number} target
  * @return {number}
  */
-function searchInsert(nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
-  
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2);
-    
-    if (nums[mid] === target) {
-      return mid;
-    } else if (nums[mid] < target) {
-      left = mid + 1;
+const searchInsert = (nums, target) => {
+  return nums.reduce((acc, curr, index) => {
+    if (curr === target) {
+      return index;
+    } else if (curr > target) {
+      return acc;
     } else {
-      right = mid - 1;
+      return index + 1;
     }
-  }
-  
-  return left;
+  }, 0);
 }
