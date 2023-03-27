@@ -6,13 +6,19 @@
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 const merge = (nums1, m, nums2, n) => {
-  let p1 = m - 1;
-  let p2 = n - 1;
-  let idx = m + n - 1;
+  let i = m - 1;
+  let j = n - 1;
+  let k = m + n - 1;
 
-  while (p1 >= 0 && p2 >= 0) {
-    nums1[idx--] = nums1[p1] > nums2[p2] ? nums1[p1--] : nums2[p2--];
+  while (i >= 0 && j >= 0) {
+    if (nums1[i] > nums2[j]) {
+      nums1[k--] = nums1[i--];
+    } else {
+      nums1[k--] = nums2[j--];
+    }
   }
 
-  nums1.splice(0, p2 + 1, ...nums2.slice(0, p2 + 1));
+  while (j >= 0) {
+    nums1[k--] = nums2[j--];
+  }
 };
