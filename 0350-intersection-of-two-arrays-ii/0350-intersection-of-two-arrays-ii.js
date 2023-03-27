@@ -4,23 +4,23 @@
  * @return {number[]}
  */
 function intersect(nums1, nums2) {
-  const map = {};
+  const map = new Map();
   const result = [];
 
-  for (let i = 0; i < nums1.length; i++) {
-    if (!map[nums1[i]]) {
-      map[nums1[i]] = 1;
+  nums1.forEach(num => {
+    if (map.has(num)) {
+      map.set(num, map.get(num) + 1);
     } else {
-      map[nums1[i]]++;
+      map.set(num, 1);
     }
-  }
+  });
 
-  for (let i = 0; i < nums2.length; i++) {
-    if (map[nums2[i]] && map[nums2[i]] > 0) {
-      result.push(nums2[i]);
-      map[nums2[i]]--;
+  nums2.forEach(num => {
+    if (map.has(num) && map.get(num) > 0) {
+      result.push(num);
+      map.set(num, map.get(num) - 1);
     }
-  }
+  });
 
   return result;
 }
