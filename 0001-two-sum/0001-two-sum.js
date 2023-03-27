@@ -6,15 +6,13 @@
 function twoSum(nums, target) {
   const map = new Map();
   
-  return nums.reduce((result, num, index) => {
-    const complement = target - num;
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
     
     if (map.has(complement)) {
-      result.push(map.get(complement), index);
+      return [map.get(complement), i];
     }
     
-    map.set(num, index);
-    
-    return result;
-  }, []);
+    map.set(nums[i], i);
+  }
 }
