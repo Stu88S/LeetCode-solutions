@@ -12,11 +12,14 @@ function matrixReshape(mat, r, c) {
     return mat;
   }
 
-  const res = new Array(r).fill().map(() => new Array(c).fill(0));
+  return mat.reduce((acc, val) => acc.concat(val), []).reduce((acc, val, i) => {
+    const row = Math.floor(i / c);
+    if (!acc[row]) {
+      acc[row] = [];
+    }
 
-  for (let i = 0; i < m * n; i++) {
-    res[Math.floor(i / c)][i % c] = mat[Math.floor(i / n)][i % n];
-  }
+    acc[row].push(val);
 
-  return res;
+    return acc;
+  }, []);
 }
