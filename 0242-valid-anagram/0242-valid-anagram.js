@@ -7,15 +7,16 @@ function isAnagram(s, t) {
   if (s.length !== t.length) {
     return false;
   }
-  let freqMap = new Map();
-    
+
+  let freqCount = new Array(26).fill(0);
+  
   for (let i = 0; i < s.length; i++) {
-    freqMap.set(s[i], (freqMap.get(s[i]) || 0) + 1);
-    freqMap.set(t[i], (freqMap.get(t[i]) || 0) - 1);
+    freqCount[s.charCodeAt(i) - 'a'.charCodeAt(0)]++;
+    freqCount[t.charCodeAt(i) - 'a'.charCodeAt(0)]--;
   }
 
-  for (let value of freqMap.values()) {
-    if (value !== 0) {
+  for (let i = 0; i < 26; i++) {
+    if (freqCount[i] !== 0) {
       return false;
     }
   }
