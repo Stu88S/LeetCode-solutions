@@ -2,11 +2,15 @@
  * @param {string} s
  * @return {number}
  */
-function firstUniqChar(str) {
-  for (let i = 0; i < str.length; i++) {
-    if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
-      return i;
+function firstUniqChar(s) {
+    const repeatedChars = new Set();
+    
+    for (let i=0; i < s.length; i++) {
+        if(s.indexOf(s[i]) === s.lastIndexOf(s[i])) {
+            return i;
+        } else {
+            repeatedChars.add(s[i]);
+        }
     }
-  }
-  return -1;
+    return -1;
 }
