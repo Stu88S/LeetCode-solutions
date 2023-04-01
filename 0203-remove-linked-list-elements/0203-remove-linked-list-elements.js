@@ -15,10 +15,9 @@ function removeElements(head, val) {
     return null;
   }
   
-  let current = head;
   let previous = null;
   
-  while (current !== null) {
+  for (let current = head; current !== null; current = current.next) {
     if (current.val === val) {
       if (previous === null) {
         head = current.next;
@@ -28,8 +27,6 @@ function removeElements(head, val) {
     } else {
       previous = current;
     }
-    
-    current = current.next;
   }
   
   return head;
