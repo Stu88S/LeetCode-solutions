@@ -10,15 +10,18 @@
  * @return {ListNode}
  */
 const deleteDuplicates = function(head) {
-    let current = head;
-    
-    while (current && current.next) {
-        if (current.val === current.next.val) {
-            current.next = current.next.next;
-        } else {
-            current = current.next;
-        }
+    if (!head) {
+        return null;
     }
     
-    return head;
+    const values = [];
+    
+    while (head) {
+        if (!values.includes(head.val)) {
+            values.push(head.val);
+        }
+        head = head.next;
+    }
+    
+    return values.reduceRight((next, val) => ({ val, next }), null);
 };
