@@ -10,24 +10,27 @@ class MyQueue {
   }
   
   pop() {
-    this.peek(); // Make sure outputStack is not empty
+    if (this.empty()) {
+      return null;
+    }
+    this.peek(); 
     return this.outputStack.pop();
   }
   
   peek() {
     if (this.outputStack.length === 0) {
-      // Transfer all elements from inputStack to outputStack
       while (this.inputStack.length > 0) {
         this.outputStack.push(this.inputStack.pop());
       }
     }
-    return this.outputStack[this.outputStack.length - 1];
+    return this.outputStack.length ? this.outputStack[this.outputStack.length - 1] : null;
   }
   
   empty() {
-    return this.inputStack.length === 0 && this.outputStack.length === 0;
+    return !this.inputStack.length && !this.outputStack.length;
   }
 }
+
 
 
 /** 
