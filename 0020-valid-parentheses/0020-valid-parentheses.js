@@ -2,22 +2,30 @@
  * @param {string} s
  * @return {boolean}
  */
-function isValid(s) {
+const isValid = function(s) {
   const stack = [];
-  const brackets = {
-    '(': ')',
-    '{': '}',
-    '[': ']'
-  };
 
   for (let i = 0; i < s.length; i++) {
-    const char = s[i];
-    if (brackets[char]) {
-      stack.push(char);
-    } else if (brackets[stack.pop()] !== char) {
-      return false;
+    const c = s.charAt(i);
+
+    if (c === '(' || c === '{' || c === '[') {
+      stack.push(c);
+    } else {
+      if (stack.length === 0) {
+        return false;
+      }
+
+      const last = stack.pop();
+
+      if (c === ')' && last !== '(') {
+        return false;
+      } else if (c === '}' && last !== '{') {
+        return false;
+      } else if (c === ']' && last !== '[') {
+        return false;
+      }
     }
   }
 
   return stack.length === 0;
-}
+};
