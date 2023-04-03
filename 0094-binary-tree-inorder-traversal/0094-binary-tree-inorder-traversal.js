@@ -11,15 +11,14 @@
  * @return {number[]}
  */
 const inorderTraversal = function(root) {
-    var res = [];
-    inorder(root, res);
-    return res;
+    return inorder(root, []).reduce((acc, val) => acc.concat(val), []);
 };
 
 const inorder = function(root, res) {
     if (root !== null) {
         inorder(root.left, res);
-        res.push(root.val);
+        res.push([root.val]);
         inorder(root.right, res);
     }
+    return res;
 };
