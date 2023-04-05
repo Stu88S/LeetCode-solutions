@@ -11,24 +11,12 @@
  * @return {number[]}
  */
 const postorderTraversal = function(root) {
-    const result = [];
     if (!root) {
-        return result;
+        return [];
     }
     
-    const stack = [];
-    stack.push(root);
+    const left = postorderTraversal(root.left);
+    const right = postorderTraversal(root.right);
     
-    while (stack.length) {
-        const node = stack.pop();
-        result.unshift(node.val);
-        if (node.left) {
-            stack.push(node.left);
-        }
-        if (node.right) {
-            stack.push(node.right);
-        }
-    }
-    
-    return result;
+    return [...left, ...right, root.val];
 };
