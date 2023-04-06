@@ -12,12 +12,13 @@
  */
 function isSymmetric(root) {
   if (!root) return true;
-  return checkSymmetry(root.left, root.right);
-}
-
-function checkSymmetry(left, right) {
-  if (!left && !right) return true;
-  if (!left || !right) return false;
-  if (left.val !== right.val) return false;
-  return checkSymmetry(left.left, right.right) && checkSymmetry(left.right, right.left);
+  const queue = [root.left, root.right];
+  while (queue.length) {
+    const left = queue.shift();
+    const right = queue.shift();
+    if (!left && !right) continue;
+    if (!left || !right || left.val !== right.val) return false;
+    queue.push(left.left, right.right, left.right, right.left);
+  }
+  return true;
 }
