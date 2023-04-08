@@ -2,14 +2,10 @@
  * @param {number[]} nums
  * @return {number}
  */
-function maxSubArray(nums) {
-    let maxSum = nums[0];
-    let currentSum = nums[0];
-    
-    for (let i = 1; i < nums.length; i++) {
-        currentSum = Math.max(currentSum + nums[i], nums[i]);
-        maxSum = Math.max(maxSum, currentSum);
-    }
-    
-    return maxSum;
-}
+const maxSubArray = function(nums) {
+  let currentSum = 0;
+  return nums.reduce((maxSum, num) => {
+    currentSum = Math.max(num, currentSum + num);
+    return Math.max(maxSum, currentSum);
+  }, nums[0]);
+};
