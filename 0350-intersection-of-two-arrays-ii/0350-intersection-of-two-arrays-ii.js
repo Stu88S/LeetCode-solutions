@@ -4,21 +4,21 @@
  * @return {number[]}
  */
 function intersect(nums1, nums2) {
-  const map = {};
+  nums1.sort((a, b) => a - b);
+  nums2.sort((a, b) => a - b);
+
   const result = [];
+  let i = 0, j = 0;
 
-  for (let i = 0; i < nums1.length; i++) {
-    if (!map[nums1[i]]) {
-      map[nums1[i]] = 1;
+  while (i < nums1.length && j < nums2.length) {
+    if (nums1[i] === nums2[j]) {
+      result.push(nums1[i]);
+      i++;
+      j++;
+    } else if (nums1[i] < nums2[j]) {
+      i++;
     } else {
-      map[nums1[i]]++;
-    }
-  }
-
-  for (let i = 0; i < nums2.length; i++) {
-    if (map[nums2[i]] && map[nums2[i]] > 0) {
-      result.push(nums2[i]);
-      map[nums2[i]]--;
+      j++;
     }
   }
 
