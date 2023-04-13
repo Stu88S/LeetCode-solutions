@@ -4,11 +4,15 @@
  * @return {boolean}
  */
 function canConstruct(ransomNote, magazine) {
+  const charCount = new Map();
+  for (let char of magazine) {
+    charCount.set(char, (charCount.get(char) || 0) + 1);
+  }
   for (let char of ransomNote) {
-    if (!magazine.includes(char)) {
+    if (!charCount.has(char) || charCount.get(char) === 0) {
       return false;
     }
-    magazine = magazine.replace(char, '');
+    charCount.set(char, charCount.get(char) - 1);
   }
   return true;
 }
