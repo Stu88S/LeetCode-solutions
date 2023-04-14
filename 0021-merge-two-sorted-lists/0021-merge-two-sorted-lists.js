@@ -11,11 +11,11 @@
  * @return {ListNode}
  */
 function mergeTwoLists(l1, l2) {
-  const dummyNode = new ListNode(null);
-  let current = dummyNode;
-  
-  while(l1 !== null && l2 !== null) {
-    if(l1.val < l2.val) {
+  let mergedList = new ListNode();
+  let current = mergedList;
+
+  while (l1 !== null && l2 !== null) {
+    if (l1.val < l2.val) {
       current.next = l1;
       l1 = l1.next;
     } else {
@@ -24,8 +24,8 @@ function mergeTwoLists(l1, l2) {
     }
     current = current.next;
   }
-  
-  current.next = l1 || l2;
-  
-  return dummyNode.next;
+
+  current.next = l1 !== null ? l1 : l2;
+
+  return mergedList.next;
 }
