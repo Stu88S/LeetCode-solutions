@@ -14,14 +14,23 @@ const deleteDuplicates = function(head) {
         return null;
     }
     
-    const values = [];
+    const values = new Map();
+    let current = head;
     
-    while (head) {
-        if (!values.includes(head.val)) {
-            values.push(head.val);
-        }
-        head = head.next;
+    while (current) {
+        values.set(current.val, true);
+        current = current.next;
     }
     
-    return values.reduceRight((next, val) => ({ val, next }), null);
+    const dummy = new ListNode(0);
+    let tail = dummy;
+    
+    for (let [val, exists] of values) {
+        if (exists) {
+            tail.next = new ListNode(val);
+            tail = tail.next;
+        }
+    }
+    
+    return dummy.next;
 };
