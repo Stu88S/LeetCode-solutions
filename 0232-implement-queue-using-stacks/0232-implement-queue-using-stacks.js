@@ -1,43 +1,30 @@
+const MyQueue = function() {
+  this.inStack = [];
+  this.outStack = [];
+};
 
-class MyQueue {
-  constructor() {
-    this.inputStack = [];
-    this.outputStack = [];
-  }
-  
-  push(x) {
-    this.inputStack.push(x);
-  }
-  
-  pop() {
-    if (this.empty()) {
-      return null;
+MyQueue.prototype.push = function(x) {
+  this.inStack.push(x);
+};
+
+MyQueue.prototype.pop = function() {
+  if (this.outStack.length === 0) {
+    while (this.inStack.length > 0) {
+      this.outStack.push(this.inStack.pop());
     }
-    this.peek(); 
-    return this.outputStack.pop();
   }
-  
-  peek() {
-    if (this.outputStack.length === 0) {
-      while (this.inputStack.length > 0) {
-        this.outputStack.push(this.inputStack.pop());
-      }
+  return this.outStack.pop();
+};
+
+MyQueue.prototype.peek = function() {
+  if (this.outStack.length === 0) {
+    while (this.inStack.length > 0) {
+      this.outStack.push(this.inStack.pop());
     }
-    return this.outputStack.length ? this.outputStack[this.outputStack.length - 1] : null;
   }
-  
-  empty() {
-    return !this.inputStack.length && !this.outputStack.length;
-  }
-}
+  return this.outStack[this.outStack.length - 1];
+};
 
-
-
-/** 
- * Your MyQueue object will be instantiated and called as such:
- * var obj = new MyQueue()
- * obj.push(x)
- * var param_2 = obj.pop()
- * var param_3 = obj.peek()
- * var param_4 = obj.empty()
- */
+MyQueue.prototype.empty = function() {
+  return this.inStack.length === 0 && this.outStack.length === 0;
+};
