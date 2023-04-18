@@ -14,28 +14,32 @@ const levelOrder = function(root) {
     if (!root) {
         return [];
     }
-    
+
     const result = [];
     const queue = [root];
-    
-    while (queue.length > 0) {
-        const levelSize = queue.length;
+    let start = 0;
+    let end = 1;
+
+    while (start < end) {
+        const levelSize = end - start;
         const currentLevel = [];
-        
+
         for (let i = 0; i < levelSize; i++) {
-            const currentNode = queue.shift();
+            const currentNode = queue[start++];
             currentLevel.push(currentNode.val);
-            
+
             if (currentNode.left) {
                 queue.push(currentNode.left);
+                end++;
             }
             if (currentNode.right) {
                 queue.push(currentNode.right);
+                end++;
             }
         }
-        
+
         result.push(currentLevel);
     }
-    
+
     return result;
 };
