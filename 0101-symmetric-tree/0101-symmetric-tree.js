@@ -10,15 +10,19 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-function isSymmetric(root) {
-  if (!root) return true;
-  const queue = [root.left, root.right];
-  while (queue.length) {
-    const left = queue.shift();
-    const right = queue.shift();
-    if (!left && !right) continue;
-    if (!left || !right || left.val !== right.val) return false;
-    queue.push(left.left, right.right, left.right, right.left);
-  }
-  return true;
+const isSymmetric = function(root) {
+    return isMirror(root, root);
+};
+
+function isMirror(t1, t2) {
+    if (t1 === null && t2 === null) {
+        return true;
+    }
+    if (t1 === null || t2 === null) {
+        return false;
+    }
+
+    return (t1.val === t2.val)
+        && isMirror(t1.right, t2.left)
+        && isMirror(t1.left, t2.right);
 }
