@@ -17,14 +17,11 @@ class TreeNode {
     this.right = right;
   }
 }
-function invertTree(root) {
+const invertTree = (root) => {
   if (root === null) {
     return null;
   }
 
-  const temp = root.left;
-  root.left = invertTree(root.right);
-  root.right = invertTree(temp);
-
+  [root.left, root.right] = [invertTree(root.right), invertTree(root.left)];
   return root;
-}
+};
