@@ -12,30 +12,18 @@
  * @return {boolean}
  */
 function findTarget(root, k) {
-  const values = inOrder(root);
-  let left = 0;
-  let right = values.length - 1;
-
-  while (left < right) {
-    const sum = values[left] + values[right];
-    if (sum === k) {
-      return true;
-    } else if (sum < k) {
-      left++;
-    } else {
-      right--;
-    }
-  }
-
-  return false;
+  return dfs(root, new Set(), k);
 }
 
-function inOrder(node) {
+function dfs(node, visited, k) {
   if (node === null) {
-    return [];
+    return false;
   }
 
-  const left = inOrder(node.left);
-  const right = inOrder(node.right);
-  return [...left, node.val, ...right];
+  if (visited.has(k - node.val)) {
+    return true;
+  }
+
+  visited.add(node.val);
+  return dfs(node.left, visited, k) || dfs(node.right, visited, k);
 }
