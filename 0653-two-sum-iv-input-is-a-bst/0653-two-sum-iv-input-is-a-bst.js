@@ -11,32 +11,56 @@
  * @param {number} k
  * @return {boolean}
  */
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
+
+function BSTIterator(root, ascending = true) {
+  this.stack = [];
+  this.ascending = ascending;
+  let node = root;
+  while (node) {
+    this.stack.push(node);
+    node = this.ascending ? node.left : node.right;
+  }
+}
+
+BSTIterator.prototype.hasNext = function () {
+  return this.stack.length > 0;
+};
+
+BSTIterator.prototype.next = function () {
+  let node = this.stack.pop();
+  let value = node.val;
+  node = this.ascending ? node.right : node.left;
+
+  while (node) {
+    this.stack.push(node);
+    node = this.ascending ? node.left : node.right;
+  }
+
+  return value;
+};
+
 function findTarget(root, k) {
-  const values = [];
-  inOrderTraversal(root, values);
-  let left = 0;
-  let right = values.length - 1;
+  if (!root) return false;
+
+  let leftIterator = new BSTIterator(root, true);
+  let rightIterator = new BSTIterator(root, false);
+  let left = leftIterator.next();
+  let right = rightIterator.next();
 
   while (left < right) {
-    const sum = values[left] + values[right];
+    const sum = left + right;
     if (sum === k) {
       return true;
     } else if (sum < k) {
-      left++;
+      left = leftIterator.next();
     } else {
-      right--;
+      right = rightIterator.next();
     }
   }
 
   return false;
-}
-
-function inOrderTraversal(node, values) {
-  if (node === null) {
-    return;
-  }
-
-  inOrderTraversal(node.left, values);
-  values.push(node.val);
-  inOrderTraversal(node.right, values);
 }
