@@ -3,11 +3,5 @@
  * @return {number}
  */
 const singleNumber = function(nums) {
-    let result = 0;
-    
-    for (let num of nums) {
-        result ^= num;
-    }
-    
-    return result;
+    return nums.reduce((result, num) => result ^ num, 0);
 };
