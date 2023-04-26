@@ -3,24 +3,15 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 function sortColors(nums) {
-  let low = 0;
-  let mid = 0;
-  let high = nums.length - 1;
+  const colorCounts = nums.reduce((acc, num) => {
+    acc[num]++;
+    return acc;
+  }, [0, 0, 0]);
 
-  while (mid <= high) {
-    switch (nums[mid]) {
-      case 0:
-        [nums[low], nums[mid]] = [nums[mid], nums[low]];
-        low++;
-        mid++;
-        break;
-      case 1:
-        mid++;
-        break;
-      case 2:
-        [nums[mid], nums[high]] = [nums[high], nums[mid]];
-        high--;
-        break;
+  let index = 0;
+  for (let color = 0; color <= 2; color++) {
+    for (let count = 0; count < colorCounts[color]; count++) {
+      nums[index++] = color;
     }
   }
 }
