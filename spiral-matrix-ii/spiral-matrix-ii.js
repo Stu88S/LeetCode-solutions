@@ -3,7 +3,7 @@
  * @return {number[][]}
  */
 function generateMatrix(n) {
-    let matrix = Array.from({ length: n }, () => Array(n).fill(0));
+    let matrix = new Array(n).fill().map(() => new Array(n).fill(0));
     let count = 1;
     let rowStart = 0, rowEnd = n - 1, colStart = 0, colEnd = n - 1;
 
