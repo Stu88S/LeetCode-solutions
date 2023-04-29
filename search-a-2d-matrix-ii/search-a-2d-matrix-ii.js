@@ -3,30 +3,23 @@
  * @param {number} target
  * @return {boolean}
  */
-function binarySearch(row, target) {
-  let left = 0;
-  let right = row.length - 1;
-
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-
-    if (row[mid] === target) {
-      return true;
-    } else if (row[mid] < target) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
-  }
-
-  return false;
-}
-
 function searchMatrix(matrix, target) {
-  for (let row of matrix) {
-    if (binarySearch(row, target)) {
+  if (matrix.length === 0 || matrix[0].length === 0) {
+    return false;
+  }
+
+  let row = 0;
+  let col = matrix[0].length - 1;
+
+  while (row < matrix.length && col >= 0) {
+    if (matrix[row][col] === target) {
       return true;
+    } else if (matrix[row][col] < target) {
+      row++;
+    } else {
+      col--;
     }
   }
+
   return false;
 }
