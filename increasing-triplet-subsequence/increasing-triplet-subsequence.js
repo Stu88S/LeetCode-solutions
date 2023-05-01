@@ -3,17 +3,19 @@
  * @return {boolean}
  */
 function increasingTriplet(nums) {
-	let first = Number.MAX_VALUE;
-	let second = Number.MAX_VALUE;
+	const result = nums.reduce(
+		(curr, num) => {
+			if (num <= curr.first) {
+				curr.first = num;
+			} else if (num <= curr.second) {
+				curr.second = num;
+			} else {
+				curr.found = true;
+			}
+			return curr;
+		},
+		{ first: Number.MAX_VALUE, second: Number.MAX_VALUE, found: false }
+	);
 
-	for (const num of nums) {
-		if (num <= first) {
-			first = num;
-		} else if (num <= second) {
-			second = num;
-		} else {
-			return true;
-		}
-	}
-	return false;
+	return result.found;
 }
