@@ -2,24 +2,35 @@
  * @param {integer} init
  * @return { increment: Function, decrement: Function, reset: Function }
  */
-function createCounter(init) {
-    let currentValue = init;
+class Counter {
+  #currentValue;
+  #initialValue;
 
-    return {
-        increment: function() {
-            currentValue +=1;
-            return currentValue;
-        },
-        decrement: function() {
-            currentValue -=1;
-            return currentValue;
-        },
-        reset: function () {
-            currentValue = init;
-            return currentValue;
-        },
-    };
-};
+  constructor(init) {
+    this.#currentValue = init;
+    this.#initialValue = init;
+  }
+
+  increment() {
+    this.#currentValue += 1;
+    return this.#currentValue;
+  }
+
+  decrement() {
+    this.#currentValue -= 1;
+    return this.#currentValue;
+  }
+
+  reset() {
+    this.#currentValue = this.#initialValue;
+    return this.#currentValue;
+  }
+}
+
+function createCounter(init) {
+  return new Counter(init);
+}
+
 
 /**
  * const counter = createCounter(5)
