@@ -4,16 +4,22 @@
  * @return {number}
  */
 function maxOperations(nums, k) {
-	let count = 0;
-	let map = new Map();
+	nums.sort((a, b) => a - b);
 
-	for (let i = 0; i < nums.length; i++) {
-		let complement = k - nums[i];
-		if (map.get(complement) > 0) {
+	let count = 0;
+	let i = 0;
+	let j = nums.length - 1;
+
+	while (i < j) {
+		let sum = nums[i] + nums[j];
+		if (sum === k) {
 			count++;
-			map.set(complement, map.get(complement) - 1);
+			i++;
+			j--;
+		} else if (sum < k) {
+			i++;
 		} else {
-			map.set(nums[i], (map.get(nums[i]) || 0) + 1);
+			j--;
 		}
 	}
 	return count;
