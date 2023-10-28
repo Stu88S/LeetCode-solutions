@@ -4,17 +4,17 @@
  * @return {number}
  */
 const longestOnes = function(nums, k) {
-    let left = 0, right = 0, max = 0, zeroCount = 0;
+    let left = 0, right = 0, max = 0;
 
     while (right < nums.length) {
-        if (nums[right] === 0) zeroCount++;
+        if (nums[right] === 0) k--;
 
-        if (zeroCount > k) {
-            if (nums[left] === 0) zeroCount--;
+        if (k < 0) {
+            if (nums[left] === 0) k++;
             left++;
         }
 
-        max = Math.max(max, right - left +1);
+        max = Math.max(max, right - left + 1);
         right++;
     }
 
