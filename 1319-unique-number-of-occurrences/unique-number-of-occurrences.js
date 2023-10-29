@@ -3,15 +3,11 @@
  * @return {boolean}
  */
 function uniqueOccurrences(arr) {
-	let count = {};
+	let count = new Map();
 	for (let num of arr) {
-		if (count[num]) {
-			count[num]++;
-		} else {
-			count[num] = 1;
-		}
+		count.set(num, (count.get(num) || 0) + 1);
 	}
 
-	let freq = Object.values(count);
-	return freq.length === new Set(freq).size;
+	let freq = new Set(count.values());
+	return count.size === freq.size;
 }
