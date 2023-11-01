@@ -1,19 +1,17 @@
 
 class RecentCounter {
-	constructor() {
-		this.requests = [];
-	}
+    constructor() {
+        this.requests = [];
+    }
 
-	ping(t) {
-		this.requests.push(t);
-		let startRange = t - 3000;
+    ping(t) {
+        this.requests.push(t);
+        let startRange = t - 3000;
 
-		while (this.requests[0] < startRange) {
-			this.requests.shift();
-		}
-
-		return this.requests.length;
-	}
+        this.requests = this.requests.filter(time => time >= startRange);
+        
+        return this.requests.length;
+    }
 }
 
 /** 
