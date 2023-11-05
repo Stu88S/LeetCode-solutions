@@ -14,22 +14,16 @@ function deleteMiddle(head) {
 		return null;
 	}
 
-	let length = 0;
-	let current = head;
+	let slow = head;
+	let fast = head;
+	let prev = null;
 
-	while (current) {
-		length++;
-		current = current.next;
+	while (fast && fast.next) {
+		fast = fast.next.next;
+		prev = slow;
+		slow = slow.next;
 	}
 
-	let middleIndex = Math.floor(length / 2) - 1;
-
-	current = head;
-
-	for (let i = 0; i < middleIndex; i++) {
-		current = current.next;
-	}
-
-	current.next = current.next.next;
+	prev.next = slow.next;
 	return head;
 }
