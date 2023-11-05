@@ -12,18 +12,15 @@
 function oddEvenList(head) {
   if (!head) return head;
 
-  let odd = head;
-  let even = head.next;
-  let evenHead = even;
+  let odd = head, even = head.next, evenHead = even;
 
   while (even && even.next) {
-    odd.next = even.next;
+    odd.next = odd.next.next;
+    even.next = even.next.next;
     odd = odd.next;
-    even.next = odd.next;
     even = even.next;
   }
 
   odd.next = evenHead;
   return head;
 }
-
